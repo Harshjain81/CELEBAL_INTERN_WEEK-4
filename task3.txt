@@ -1,0 +1,31 @@
+# Docker Setup & Basic Commands
+
+# Check Docker version
+docker --version
+
+# Run a test container to verify Docker is installed correctly
+docker run hello-world
+
+# List all Docker images on your system
+docker images
+
+# List currently running containers
+docker ps
+
+# List all containers (including stopped ones)
+docker ps -a
+
+# Pull an Ubuntu image from DockerHub
+docker pull ubuntu
+
+# Run an Ubuntu container interactively
+docker run -it ubuntu
+
+# Stop a running container 
+docker stop <24f473bc12672c6277ec9c238eb8bad75c5fb7f287099f829fed898c69436ee4>
+
+# Remove a stopped container
+docker rm <24f473bc12672c6277ec9c238eb8bad75c5fb7f287099f829fed898c69436ee4>
+
+# Remove an image
+docker rmi <24f473bc12672c6277ec9c238eb8bad75c5fb7f287099f829fed898c69436ee4>
