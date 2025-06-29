@@ -1,0 +1,63 @@
+# Create and Mount a Docker Volume
+
+=======================================
+1. Create a Docker Volume
+=======================================
+docker volume create my-volume
+
+# Creates a named volume called 'my-volume'.
+
+=======================================
+2. Verify the Volume
+=======================================
+docker volume ls
+
+# Lists all Docker volumes.
+
+=======================================
+3. Run a Container with the Volume Mounted
+=======================================
+docker run -dit \
+  --name volume-container \
+  -v my-volume:/data \
+  ubuntu
+
+# Mounts 'my-volume' to '/data' in the container.
+
+=======================================
+4. Write Data Inside the Container
+=======================================
+docker exec -it volume-container bash
+cd /data
+echo "This is saved in volume" > volume.txt
+exit
+
+# Data is written to the mounted volume.
+
+=======================================
+5. Remove Container and Reuse Volume
+=======================================
+docker rm -f volume-container
+
+docker run -it \
+  --name new-container \
+  -v my-volume:/data \
+  ubuntu
+
+cat /data/volume.txt
+
+# The file is still there, showing data persistence.
+
+=======================================
+6. Inspect Volume
+=======================================
+docker volume inspect my-volume
+
+# Shows volume metadata.
+
+=======================================
+7. Remove Volume
+=======================================
+docker volume rm my-volume
+
+# Only works if the volume is not in use.

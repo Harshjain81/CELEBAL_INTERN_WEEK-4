@@ -1,0 +1,71 @@
+# Docker Compose for Multi-Container Applications & Docker Security Best Practices
+
+=======================================================
+1. Docker Compose for Multi-Container Applications
+=======================================================
+
+# docker-compose.yml example:
+version: '3'
+services:
+  web:
+    image: node:18
+    container_name: web-app
+    working_dir: /app
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+    command: node app.js
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    container_name: mongo-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+volumes:
+  mongo-data:
+
+# Commands:
+docker-compose up -d       # Start containers
+docker-compose ps          # List containers
+docker-compose down        # Stop and remove containers
+
+=======================================================
+2. Docker Security Best Practices
+=======================================================
+
+1. Use Minimal Base Images
+   - Use lightweight images like alpine or distroless.
+
+2. Avoid Running as Root
+   - Add: USER node (or any non-root user) in Dockerfile.
+
+3. Avoid Hardcoding Secrets
+   - Use environment variables or secret managers.
+
+4. Drop Unnecessary Capabilities
+   - docker run --cap-drop ALL --cap-add NET_ADMIN
+
+5. Use Docker Content Trust (DCT)
+   - export DOCKER_CONTENT_TRUST=1
+
+6. Use Read-Only Filesystem
+   - docker run --read-only ...
+
+7. Scan Images for Vulnerabilities
+   - docker scan <image>
+   - Use third-party tools like Trivy
+
+8. Keep Docker Engine Updated
+   - Regular updates protect from vulnerabilities.
+
+9. Use Namespaces and cgroups
+   - Isolate containers and limit resource usage.
+
+10. Limit Network Exposure
+   - Expose only required ports and configure firewalls.
