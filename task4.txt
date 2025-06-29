@@ -1,0 +1,58 @@
+# Methods to Create Docker Image
+
+========================================
+1. Create Image Using Dockerfile
+========================================
+
+# Step 1: Create a Dockerfile
+# Example Dockerfile:
+FROM node:18
+WORKDIR /app
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["node", "app.js"]
+
+# Step 2: Build the image
+docker build -t my-node-app .
+
+# Step 3: Verify image creation
+docker images
+
+========================================
+2. Create Image from a Running Container
+========================================
+
+# Step 1: Run a base container
+docker run -it ubuntu
+
+# Inside the container:
+apt update
+apt install -y curl
+exit
+
+# Step 2: Get container ID
+docker ps -a
+
+# Step 3: Commit the container to an image
+docker commit <container_id> my-custom-ubuntu
+
+# Step 4: Verify image creation
+docker images
+
+========================================
+3. Create Image Using Docker Compose (Optional)
+========================================
+
+# docker-compose.yml example:
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+
+# Run this command
+docker-compose build
+
+# All methods complete!
