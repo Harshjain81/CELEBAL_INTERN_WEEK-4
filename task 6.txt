@@ -1,0 +1,47 @@
+# Create a Custom Docker Bridge Network
+
+=======================================
+1. Create a Custom Network
+=======================================
+docker network create \
+  --driver bridge \
+  my-custom-bridge
+
+# You can name the network as needed.
+
+=======================================
+2. Verify Network Creation
+=======================================
+docker network ls
+
+# This will list all networks, including 'my-custom-bridge'.
+
+=======================================
+3. Inspect Network Details
+=======================================
+docker network inspect my-custom-bridge
+
+# Displays subnet, gateway, and connected containers.
+
+=======================================
+4. Run Containers on Custom Network
+=======================================
+docker run -dit --name container1 --network my-custom-bridge alpine
+docker run -dit --name container2 --network my-custom-bridge alpine
+
+# Now, containers can communicate using container names:
+docker exec -it container1 ping container2
+
+=======================================
+5. Optional: Custom Subnet and Gateway
+=======================================
+docker network create \
+  --driver bridge \
+  --subnet 192.168.100.0/24 \
+  --gateway 192.168.100.1 \
+  my-advanced-bridge
+
+=======================================
+6. Clean Up Network
+=======================================
+docker network rm my-custom-bridge
