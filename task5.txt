@@ -1,0 +1,40 @@
+# Push & Pull Docker Images to Docker Hub and Azure Container Registry (ACR)
+
+=======================================================
+1. Docker Hub - Push and Pull Image
+=======================================================
+
+# Step 1: Login to Docker Hub
+docker login
+
+# Step 2: Tag your image my-web-app
+docker tag my-web-app 
+
+# Step 3: Push the image to Docker Hub
+docker push my-web-app
+
+# Step 4: Pull the image from Docker Hub (any machine)
+docker pull my-web-app
+
+
+=======================================================
+2. Azure Container Registry (ACR) - Push and Pull Image
+=======================================================
+
+# Step 1: Login to Azure CLI
+az login
+
+# Step 2: Create ACR (if not created)
+az acr create --resource-group harsh --name harsh --sku Basic
+
+# Step 3: Login to ACR
+az acr login --name harsh
+
+# Step 4: Tag your image for ACR (use full registry path)
+docker tag my-image my-web-app hasrh.azurecr.io/my-image
+
+# Step 5: Push to ACR
+docker push harsh.azurecr.io/my-image
+
+# Step 6: Pull from ACR
+docker pull harsh.azurecr.io/my-image
